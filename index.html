@@ -3,69 +3,246 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>VTuber MultiView</title>
+<title>VTuber MultiView Ver.3</title>
 <style>
-:root{--bg:#0d1017;--panel:#171b25;--panel2:#202634;--line:#30384a;--text:#f7f8fb;--muted:#aeb6c7;--accent:#8b7cff}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI","Noto Sans JP",sans-serif}
-.app{max-width:1600px;margin:auto;padding:18px}.head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
-.brand{display:flex;gap:11px;align-items:center}.logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#8b7cff,#69e0d0);display:grid;place-items:center;color:#10131c;font-weight:900}
-h1{font-size:19px;margin:0}.sub{font-size:13px;color:var(--muted);margin-top:3px}.bar{display:grid;grid-template-columns:1fr auto auto;gap:8px;padding:12px;background:var(--panel);border:1px solid var(--line);border-radius:15px}
-input,select,button{font:inherit}input,select{min-height:44px;border:1px solid var(--line);border-radius:10px;background:#10141d;color:var(--text);padding:0 12px;outline:none}
-button{min-height:42px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--text);padding:8px 12px;cursor:pointer}button:hover{border-color:#59657c}.primary{background:var(--accent);border-color:var(--accent)}
-.tools{display:flex;gap:8px;flex-wrap:wrap}.info{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:13px;padding:10px 2px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.grid.one{grid-template-columns:1fr}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:15px;overflow:hidden;min-width:0}.video{aspect-ratio:16/9;background:#080a0f}.video iframe{display:block;width:100%;height:100%;border:0}
-.empty{aspect-ratio:16/7;display:grid;place-items:center;text-align:center;color:var(--muted);background:radial-gradient(circle at 30% 20%,rgba(139,124,255,.15),transparent 30%),#0b0e14}.empty b{display:block;color:var(--text);margin-bottom:6px}
-.cardbar{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:9px}.title{font-weight:700;flex:1;min-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.on{border-color:var(--accent);background:rgba(139,124,255,.15)}.focus{grid-column:1/-1}.focus .video{aspect-ratio:16/8}
-.note{margin-top:14px;color:var(--muted);font-size:12px;line-height:1.6}.danger{color:#ffd8df}
-@media(max-width:850px){.bar{grid-template-columns:1fr}.grid,.grid.three{grid-template-columns:1fr}.focus .video{aspect-ratio:16/9}}
+:root{
+  --bg:#0b0e14;--panel:#151922;--panel2:#1d2330;--line:#2d3545;
+  --text:#f7f8fb;--muted:#aeb6c7;--accent:#8b7cff;
+  --gap:10px;--radius:14px;--pad:16px;--control-h:40px;--bar-pad:10px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI","Noto Sans JP",sans-serif}
+body{min-height:100vh}
+.app{max-width:1800px;margin:auto;padding:var(--pad)}
+.head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.brand{display:flex;gap:10px;align-items:center}.logo{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#8b7cff,#69e0d0);display:grid;place-items:center;color:#10131c;font-weight:900}
+h1{font-size:18px;margin:0}.sub{font-size:12px;color:var(--muted);margin-top:2px}
+.bar{display:grid;grid-template-columns:1fr auto auto;gap:7px;padding:var(--bar-pad);background:var(--panel);border:1px solid var(--line);border-radius:var(--radius)}
+input,select,button{font:inherit}
+input,select{min-height:var(--control-h);border:1px solid var(--line);border-radius:9px;background:#0f131b;color:var(--text);padding:0 10px;outline:none}
+button{min-height:var(--control-h);border:1px solid var(--line);border-radius:9px;background:var(--panel2);color:var(--text);padding:7px 10px;cursor:pointer}
+button:hover{border-color:#59657c}.primary{background:var(--accent);border-color:var(--accent)}
+.tools{display:flex;gap:7px;flex-wrap:wrap}
+.modebar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.modebar .active{border-color:var(--accent);background:rgba(139,124,255,.15)}
+.info{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:12px;padding:8px 2px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gap)}
+.grid.one{grid-template-columns:1fr}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;min-width:0}
+.video{aspect-ratio:16/9;background:#080a0f}.video iframe{display:block;width:100%;height:100%;border:0}
+.empty{aspect-ratio:16/7;display:grid;place-items:center;text-align:center;color:var(--muted);background:radial-gradient(circle at 30% 20%,rgba(139,124,255,.15),transparent 30%),#0b0e14}.empty b{display:block;color:var(--text);margin-bottom:5px}
+.cardbar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:8px}
+.title{font-weight:700;flex:1;min-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.on{border-color:var(--accent);background:rgba(139,124,255,.15)}
+.focus{grid-column:1/-1}.focus .video{aspect-ratio:16/8}
+.note{margin-top:10px;color:var(--muted);font-size:11px;line-height:1.5}.danger{color:#ffd8df}
+.badge{font-size:11px;padding:4px 7px;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
+
+/* compact */
+body.compact{
+  --gap:4px;--radius:6px;--pad:8px;--control-h:34px;--bar-pad:6px;
+}
+body.compact .head{margin-bottom:6px}
+body.compact .logo{width:32px;height:32px;border-radius:9px}
+body.compact h1{font-size:15px}
+body.compact .sub{display:none}
+body.compact .info{padding:5px 1px;font-size:11px}
+body.compact .cardbar{padding:5px;gap:4px}
+body.compact .cardbar button{min-height:31px;padding:4px 7px;font-size:12px}
+body.compact .title{font-size:12px}
+
+/* immersive */
+body.immersive{
+  --gap:1px;--radius:0px;--pad:2px;--control-h:30px;--bar-pad:3px;
+}
+body.immersive .head{display:none}
+body.immersive .bar{border-radius:0;border-left:0;border-right:0;padding:3px}
+body.immersive .modebar{margin:3px 0}
+body.immersive .info{display:none}
+body.immersive .grid{gap:1px}
+body.immersive .card{border-radius:0;border-color:#11161e}
+body.immersive .cardbar{padding:2px 3px;gap:3px}
+body.immersive .cardbar button{min-height:26px;padding:2px 6px;font-size:11px}
+body.immersive .title{font-size:11px;min-width:70px}
+body.immersive .note{display:none}
+body.immersive .bar input,body.immersive .bar select,body.immersive .bar button{min-height:30px;font-size:12px}
+body.immersive .modebar button{min-height:28px;padding:3px 7px;font-size:11px}
+body.immersive .video{aspect-ratio:16/9}
+body.immersive .focus .video{aspect-ratio:16/8.7}
+
+@media(max-width:850px){
+  .bar{grid-template-columns:1fr}
+  .grid,.grid.three{grid-template-columns:1fr}
+  .focus .video{aspect-ratio:16/9}
+}
 </style>
 </head>
 <body>
 <div class="app">
 <header class="head">
- <div class="brand"><div class="logo">MV</div><div><h1>VTuber MultiView</h1><div class="sub">YouTube配信を最大4枠で同時視聴</div></div></div>
- <div class="tools"><button id="solo">🎧 選択枠だけ音声</button><button id="muteAll">🔇 全ミュート</button><button id="clear" class="danger">全枠クリア</button></div>
+  <div class="brand">
+    <div class="logo">MV</div>
+    <div><h1>VTuber MultiView <span class="badge">Ver.3</span></h1><div class="sub">動画優先のコンパクト表示に対応</div></div>
+  </div>
+  <div class="tools">
+    <button id="solo">🎧 選択枠だけ音声</button>
+    <button id="muteAll">🔇 全ミュート</button>
+    <button id="clear" class="danger">全枠クリア</button>
+  </div>
 </header>
+
 <section class="bar">
- <input id="url" type="url" placeholder="YouTube URLを貼り付け">
- <button id="add" class="primary">＋ 配信を追加</button>
- <select id="layout"><option value="auto">自動レイアウト</option><option value="one">1列</option><option value="two">2列</option><option value="three">3列</option></select>
+  <input id="url" type="url" placeholder="YouTube URLを貼り付け">
+  <button id="add" class="primary">＋ 配信を追加</button>
+  <select id="layout">
+    <option value="auto">自動レイアウト</option>
+    <option value="one">1列</option>
+    <option value="two">2列</option>
+    <option value="three">3列</option>
+  </select>
 </section>
-<div class="info"><span id="count">0 / 4 枠</span><span>枠をクリックすると「選択枠」になります</span></div>
-<main id="grid" class="grid"></main>
-<p class="note">※ YouTube側で埋め込みが許可されていない動画は、このサイトでも再生できません。ブラウザの自動再生制限により追加直後はミュート状態です。</p>
+
+<div class="modebar">
+  <button data-ui="normal" class="uiBtn active">通常</button>
+  <button data-ui="compact" class="uiBtn">コンパクト</button>
+  <button data-ui="immersive" class="uiBtn">没入モード</button>
+  <select id="embedMode">
+    <option value="normal">通常YouTube埋め込み</option>
+    <option value="privacy">プライバシー強化版</option>
+  </select>
 </div>
+
+<div class="info">
+  <span id="count">0 / 4 枠</span>
+  <span>没入モードでは枠・余白・操作UIを最小化します</span>
+</div>
+
+<main id="grid" class="grid"></main>
+
+<p class="note">
+※ 「▶ YouTube」は通常のYouTubeページを新しいタブで開きます。<br>
+※ 通常YouTube埋め込みでも、外部サイト上でPremium特典が反映される保証はありません。<br>
+※ YouTube側で埋め込みが許可されていない動画は再生できません。
+</p>
+</div>
+
 <script>
-const MAX=4, grid=document.getElementById('grid'), url=document.getElementById('url'), layout=document.getElementById('layout');
-let items=[], selected=null, focused=null;
-function idFrom(v){try{let u=new URL(v);if(u.hostname.includes('youtu.be'))return u.pathname.split('/').filter(Boolean)[0];if(u.hostname.includes('youtube.com')){if(u.pathname==='/watch')return u.searchParams.get('v');let p=u.pathname.split('/').filter(Boolean);if(['live','shorts','embed'].includes(p[0]))return p[1]}}catch(e){}return /^[\w-]{11}$/.test(v.trim())?v.trim():null}
-function uid(){return (crypto.randomUUID&&crypto.randomUUID())||String(Date.now()+Math.random())}
-function save(){localStorage.setItem('vtmv2',JSON.stringify(items))}
-function load(){try{items=JSON.parse(localStorage.getItem('vtmv2')||'[]').slice(0,MAX)}catch(e){items=[]}}
-function command(id,fn){let f=document.getElementById('f-'+id);if(f?.contentWindow)f.contentWindow.postMessage(JSON.stringify({event:'command',func:fn,args:[]}),'*')}
-function setMute(id,m){let x=items.find(i=>i.id===id);if(!x)return;x.muted=m;command(id,m?'mute':'unMute');save();controls()}
-function controls(){document.querySelectorAll('.card').forEach(c=>{let x=items.find(i=>i.id===c.dataset.id);if(!x)return;c.style.outline=selected===x.id?'2px solid var(--accent)':'none';let b=c.querySelector('.mute');b.textContent=x.muted?'🔇 ミュート':'🔊 音声ON';b.classList.toggle('on',!x.muted)})}
-function render(){
- grid.className='grid'+(layout.value==='one'?' one':layout.value==='three'?' three':'');
- grid.innerHTML='';
- if(!items.length)grid.innerHTML='<div class="card" style="grid-column:1/-1"><div class="empty"><div><b>YouTube URLを貼って配信を追加</b>最大4枠まで表示できます</div></div></div>';
- items.forEach((x,n)=>{let c=document.createElement('section');c.className='card'+(focused===x.id?' focus':'');c.dataset.id=x.id;
- c.innerHTML=`<div class="video"><iframe id="f-${x.id}" src="https://www.youtube-nocookie.com/embed/${x.vid}?autoplay=1&mute=1&enablejsapi=1&playsinline=1&rel=0" title="YouTube配信 ${n+1}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div><div class="cardbar"><div class="title">配信 #${n+1}</div><button class="mute">${x.muted?'🔇 ミュート':'🔊 音声ON'}</button><button class="only">🎧 この枠だけ</button><button class="big">${focused===x.id?'↩ 戻す':'⛶ 集中'}</button><button class="del danger">✕</button></div>`;
- c.addEventListener('click',()=>{selected=x.id;controls()});
- c.querySelector('.mute').onclick=e=>{e.stopPropagation();setMute(x.id,!x.muted)};
- c.querySelector('.only').onclick=e=>{e.stopPropagation();selected=x.id;items.forEach(i=>setMute(i.id,i.id!==x.id))};
- c.querySelector('.big').onclick=e=>{e.stopPropagation();focused=focused===x.id?null:x.id;selected=x.id;render()};
- c.querySelector('.del').onclick=e=>{e.stopPropagation();items=items.filter(i=>i.id!==x.id);if(selected===x.id)selected=items[0]?.id||null;if(focused===x.id)focused=null;save();render()};
- grid.appendChild(c)});
- document.getElementById('count').textContent=`${items.length} / ${MAX} 枠`;controls()
+const MAX=4;
+const grid=document.getElementById('grid'),url=document.getElementById('url'),layout=document.getElementById('layout'),embedMode=document.getElementById('embedMode');
+let items=[],selected=null,focused=null,uiMode='normal';
+
+function idFrom(v){
+  try{
+    const u=new URL(v);
+    if(u.hostname.includes('youtu.be')) return u.pathname.split('/').filter(Boolean)[0];
+    if(u.hostname.includes('youtube.com')){
+      if(u.pathname==='/watch') return u.searchParams.get('v');
+      const p=u.pathname.split('/').filter(Boolean);
+      if(['live','shorts','embed'].includes(p[0])) return p[1];
+    }
+  }catch(e){}
+  return /^[\w-]{11}$/.test(v.trim())?v.trim():null;
 }
-function add(){let v=url.value.trim(),vid=idFrom(v);if(!vid)return alert('YouTubeのURLを確認してね');if(items.length>=MAX)return alert('最大4枠までだよ');if(items.some(i=>i.vid===vid))return alert('その配信は追加済みだよ');let x={id:uid(),vid,url:v,muted:true};items.push(x);selected=x.id;url.value='';save();render()}
-document.getElementById('add').onclick=add;url.addEventListener('keydown',e=>{if(e.key==='Enter')add()});layout.onchange=render;
+function uid(){return (crypto.randomUUID&&crypto.randomUUID())||String(Date.now()+Math.random())}
+function save(){
+  localStorage.setItem('vtmv3_items',JSON.stringify(items));
+  localStorage.setItem('vtmv3_mode',embedMode.value);
+  localStorage.setItem('vtmv3_ui',uiMode);
+}
+function load(){
+  try{items=JSON.parse(localStorage.getItem('vtmv3_items')||'[]').slice(0,MAX)}catch(e){items=[]}
+  embedMode.value=localStorage.getItem('vtmv3_mode')||'normal';
+  uiMode=localStorage.getItem('vtmv3_ui')||'normal';
+  applyUi();
+}
+function applyUi(){
+  document.body.classList.remove('compact','immersive');
+  if(uiMode==='compact')document.body.classList.add('compact');
+  if(uiMode==='immersive')document.body.classList.add('immersive');
+  document.querySelectorAll('.uiBtn').forEach(b=>b.classList.toggle('active',b.dataset.ui===uiMode));
+}
+function command(id,fn){
+  const f=document.getElementById('f-'+id);
+  if(f?.contentWindow)f.contentWindow.postMessage(JSON.stringify({event:'command',func:fn,args:[]}),'*');
+}
+function setMute(id,m){
+  const x=items.find(i=>i.id===id);if(!x)return;
+  x.muted=m;command(id,m?'mute':'unMute');save();controls();
+}
+function controls(){
+  document.querySelectorAll('.card').forEach(c=>{
+    const x=items.find(i=>i.id===c.dataset.id);if(!x)return;
+    c.style.outline=selected===x.id?'2px solid var(--accent)':'none';
+    const b=c.querySelector('.mute');
+    b.textContent=x.muted?'🔇':'🔊';
+    b.title=x.muted?'ミュート中':'音声ON';
+    b.classList.toggle('on',!x.muted);
+  });
+}
+function embedBase(){return embedMode.value==='privacy'?'https://www.youtube-nocookie.com/embed/':'https://www.youtube.com/embed/'}
+function render(){
+  grid.className='grid'+(layout.value==='one'?' one':layout.value==='three'?' three':'');
+  grid.innerHTML='';
+  if(!items.length){
+    grid.innerHTML='<div class="card" style="grid-column:1/-1"><div class="empty"><div><b>YouTube URLを貼って配信を追加</b>最大4枠まで表示できます</div></div></div>';
+  }
+  items.forEach((x,n)=>{
+    const c=document.createElement('section');
+    c.className='card'+(focused===x.id?' focus':'');
+    c.dataset.id=x.id;
+    const watch='https://www.youtube.com/watch?v='+encodeURIComponent(x.vid);
+    c.innerHTML=`
+      <div class="video">
+        <iframe id="f-${x.id}" src="${embedBase()}${x.vid}?autoplay=1&mute=1&enablejsapi=1&playsinline=1&rel=0"
+          title="YouTube配信 ${n+1}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="cardbar">
+        <div class="title">#${n+1}</div>
+        <button class="open" title="YouTubeで開く">▶ YouTube</button>
+        <button class="mute" title="${x.muted?'ミュート中':'音声ON'}">${x.muted?'🔇':'🔊'}</button>
+        <button class="only" title="この枠だけ音声">🎧</button>
+        <button class="big" title="集中表示">${focused===x.id?'↩':'⛶'}</button>
+        <button class="del danger" title="削除">✕</button>
+      </div>`;
+    c.addEventListener('click',()=>{selected=x.id;controls()});
+    c.querySelector('.open').onclick=e=>{e.stopPropagation();window.open(watch,'_blank','noopener,noreferrer')};
+    c.querySelector('.mute').onclick=e=>{e.stopPropagation();setMute(x.id,!x.muted)};
+    c.querySelector('.only').onclick=e=>{e.stopPropagation();selected=x.id;items.forEach(i=>setMute(i.id,i.id!==x.id))};
+    c.querySelector('.big').onclick=e=>{e.stopPropagation();focused=focused===x.id?null:x.id;selected=x.id;render()};
+    c.querySelector('.del').onclick=e=>{e.stopPropagation();items=items.filter(i=>i.id!==x.id);if(selected===x.id)selected=items[0]?.id||null;if(focused===x.id)focused=null;save();render()};
+    grid.appendChild(c);
+  });
+  document.getElementById('count').textContent=`${items.length} / ${MAX} 枠`;
+  controls();
+}
+function add(){
+  const v=url.value.trim(),vid=idFrom(v);
+  if(!vid)return alert('YouTubeのURLを確認してね');
+  if(items.length>=MAX)return alert('最大4枠までだよ');
+  if(items.some(i=>i.vid===vid))return alert('その配信は追加済みだよ');
+  const x={id:uid(),vid,url:v,muted:true};
+  items.push(x);selected=x.id;url.value='';save();render();
+}
+document.getElementById('add').onclick=add;
+url.addEventListener('keydown',e=>{if(e.key==='Enter')add()});
+layout.onchange=render;
+embedMode.onchange=()=>{save();render()};
 document.getElementById('muteAll').onclick=()=>items.forEach(i=>setMute(i.id,true));
-document.getElementById('solo').onclick=()=>{let id=selected||items[0]?.id;if(!id)return;items.forEach(i=>setMute(i.id,i.id!==id))};
-document.getElementById('clear').onclick=()=>{if(items.length&&confirm('すべての配信枠を消しますか？')){items=[];selected=focused=null;save();render()}};
-load();selected=items[0]?.id||null;render();
+document.getElementById('solo').onclick=()=>{
+  const id=selected||items[0]?.id;if(!id)return;
+  items.forEach(i=>setMute(i.id,i.id!==id));
+};
+document.getElementById('clear').onclick=()=>{
+  if(items.length&&confirm('すべての配信枠を消しますか？')){
+    items=[];selected=focused=null;save();render();
+  }
+};
+document.querySelectorAll('.uiBtn').forEach(b=>b.onclick=()=>{
+  uiMode=b.dataset.ui;applyUi();save();
+});
+load();
+selected=items[0]?.id||null;
+render();
 </script>
 </body>
 </html>
